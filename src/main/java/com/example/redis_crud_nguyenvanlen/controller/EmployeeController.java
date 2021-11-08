@@ -6,8 +6,6 @@ import com.example.redis_crud_nguyenvanlen.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping
 public class EmployeeController {
@@ -19,17 +17,17 @@ public class EmployeeController {
         employeeRepository.saveEmployee(employee);
         return employee;
     }
-
+//
     @GetMapping("/employees")
-    public List<Employee> findAll(){
+    public Long findAll(){
 
         return employeeRepository.findAll();
     }
-    @GetMapping("/employees/{id}")
-    public Employee findById(@PathVariable("id") Integer id){
-
-        return employeeRepository.findById(id);
-    }
+//    @GetMapping("/employees/{id}")
+//    public Employee findById(@PathVariable("id") Integer id){
+//
+//        return employeeRepository.findById(id);
+//    }
 
     @PutMapping("/employee}")
     public void update(@RequestBody Employee employee){

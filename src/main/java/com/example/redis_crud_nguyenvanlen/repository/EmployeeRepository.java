@@ -6,8 +6,6 @@ import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public class EmployeeRepository {
 
@@ -49,22 +47,23 @@ public class EmployeeRepository {
 
     //-----------------------------------------------------------CRUD LIST---------------------------------------------------------------------
     public void saveEmployee(Employee employee){
-        listOperations.put("EMPLOYEE", employee.getId(), employee);
+        listOperations.leftPush(employee.getId(), employee);
     }
-    public List<Employee> findAll(){
 
-        return listOperations.values("EMPLOYEE");
-    }
-    public Employee findById(Integer id){
+    public Long findAll(){
 
-        return (Employee) listOperations.get("EMPLOYEE", id);
+        return listOperations.size(Employee.class);
     }
+//    public Employee findById(Integer id){
+//
+//        return (Employee) listOperations.get("EMPLOYEE", id);
+//    }
 
     public void update(Employee employee){
         saveEmployee(employee);
     }
     public void delete(Integer id){
-        listOperations.delete("EMPLOYEE", id);
+        listOperations.remove("EMPLOYEE",1, id);
     }
 
     //-----------------------------------------------------------CRUD SET------------------------------------
