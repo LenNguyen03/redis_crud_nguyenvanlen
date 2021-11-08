@@ -21,27 +21,51 @@ public class EmployeeRepository {
     private RedisTemplate redisTemplate;
 
     public EmployeeRepository(RedisTemplate redisTemplate) {
-        this.hashOperations = redisTemplate.opsForHash();
+//        this.hashOperations = redisTemplate.opsForHash();
+        //---------------------------------------------CRUD LIST-------------------------------------------------------
+        this.listOperations = redisTemplate.opsForList();
         this.redisTemplate = redisTemplate;
 
     }
+    //---------------------------------------------CRUD HASH-------------------------------------------------------
+//    public void saveEmployee(Employee employee){
+//        hashOperations.put("EMPLOYEE", employee.getId(), employee);
+//    }
+//    public List<Employee> findAll(){
+//
+//        return hashOperations.values("EMPLOYEE");
+//    }
+//    public Employee findById(Integer id){
+//
+//        return (Employee) hashOperations.get("EMPLOYEE", id);
+//    }
+//
+//    public void update(Employee employee){
+//        saveEmployee(employee);
+//    }
+//    public void delete(Integer id){
+//        hashOperations.delete("EMPLOYEE", id);
+//    }
 
+    //-----------------------------------------------------------CRUD LIST---------------------------------------------------------------------
     public void saveEmployee(Employee employee){
-        hashOperations.put("EMPLOYEE", employee.getId(), employee);
+        listOperations.put("EMPLOYEE", employee.getId(), employee);
     }
     public List<Employee> findAll(){
 
-        return hashOperations.values("EMPLOYEE");
+        return listOperations.values("EMPLOYEE");
     }
     public Employee findById(Integer id){
 
-        return (Employee) hashOperations.get("EMPLOYEE", id);
+        return (Employee) listOperations.get("EMPLOYEE", id);
     }
 
     public void update(Employee employee){
         saveEmployee(employee);
     }
     public void delete(Integer id){
-        hashOperations.delete("EMPLOYEE", id);
+        listOperations.delete("EMPLOYEE", id);
     }
+
+    //-----------------------------------------------------------CRUD SET------------------------------------
 }
